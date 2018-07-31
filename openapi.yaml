@@ -11,26 +11,26 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-# TODO: Update file with shakespeare.py info
 ---
 swagger: "2.0"
 info:
-  title: "Airport Codes"
-  description: "Get the name of an airport from its three-letter IATA code."
-  version: "1.0.0"
+  title: "Shakespeare translations"
+  description: "Style transfer: Get text translated into Shakespeare-ese given a modern style text input."
+  version: "0.1.0"
 # This field will be replaced by the deploy_api.sh script.
 host: "YOUR-PROJECT-ID.appspot.com"
 schemes:
   - "https"
 paths:
-  "/airportName":
+  # should be able to access this field as
+  # https://parlancr-210021.appspot.com/toShakespeare ...
+  "/toShakespeare":
     get:
-      description: "Get the airport name for a given IATA code."
-      operationId: "airportName"
+      description: "Get Shakespeare translated text given a modern text input."
+      operationId: "toShakespeare"
       parameters:
         -
-          name: iataCode
+          name: modernText # was iataCode
           in: query
           required: true
           type: string
@@ -40,4 +40,4 @@ paths:
           schema:
             type: string
         400:
-          description: "The IATA code is invalid or missing."
+          description: "400 fail."
