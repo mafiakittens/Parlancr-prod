@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# TODO: update to connect to shakespeare endpoints per updated
+# method "predict"
+
 import logging
 
 from flask import Flask

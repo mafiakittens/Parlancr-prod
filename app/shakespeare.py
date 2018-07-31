@@ -1,4 +1,6 @@
-# TODO: 
+# TODO: create method within class that allows main.py
+# to access "predict"?
+
 
 import os
 import sys
