@@ -19,24 +19,23 @@ import logging
 
 from flask import Flask
 from flask import request
-from style_transfer import Model
+from airports import Airports
 
 app = Flask(__name__)
-model = Model()
+airport_util = Airports()
 
-@app.route('/toShakespeare', methods=['GET'])
+@app.route('/airportName', methods=['GET'])
 
 # This function calls "toShakespeare"
-def shakespeareText():
-    """Given an input sentence, return the same sentence in Shakespeare style."""
-    #while True:
-    modern_text = request.args.get('modernText')
-    if modern_text is None:
-        return 'No text input detected.', 400
-    output_text = model.toShakespeare(modern_text)
-    if output_text is None:
-        return 'You have stumped the style translator!', 400
-    return output_text, 200
+def airportName():
+    """Given an airport IATA code, return that airport's name."""
+    iata_code = request.args.get('iataCode')
+    if iata_code is None:
+      return 'No IATA code provided.', 400
+    maybe_name = airport_util.get_airport_by_iata(iata_code)
+    if maybe_name is None:
+      return 'IATA code not found : %s' % iata_code, 400
+    return maybe_name, 200
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)

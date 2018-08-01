@@ -153,6 +153,32 @@ class Model(object):
         self.optimize_d1 = opt.minimize(self.loss_d1, var_list=theta_d1)
 
         self.saver = tf.train.Saver()
+        
+        
+        def toShakespeare(self, modern_text):
+        """Given a line of text, return that text in the indicated style.
+        
+        Args:
+          modern_text: (string) The input.
+          
+        Returns:
+          string: The translated text, if generated.
+        """ 
+        
+            config = tf.ConfigProto()
+            config.gpu_options.allow_growth = True
+            
+            vocab = Vocabulary('tmp/shakes_mod.vocab')
+        
+            batch = get_batch([modern_text], [1], vocab.word2id)
+            ori, tsf = decoder.rewrite(batch)
+            
+            out = ''.join(w for w in tsf[0])
+            
+            return out
+
+
+            
 
 def transfer(model, decoder, sess, args, vocab, data0, data1, out_path):
     batches, order0, order1 = get_batches(data0, data1,
@@ -197,6 +223,7 @@ def create_model(sess, args, vocab):
         print 'Creating model with fresh parameters.'
         sess.run(tf.global_variables_initializer())
     return model
+
 
 if __name__ == '__main__':
     args = load_arguments()
