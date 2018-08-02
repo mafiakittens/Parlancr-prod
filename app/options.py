@@ -3,7 +3,7 @@ import argparse
 import pprint
 
 def load_arguments():
-    argparser = argparse.ArgumentParser(sys.argv[0])
+    argparser = argparse.ArgumentParser()
 
     argparser.add_argument('--train',
             type=str,
@@ -22,7 +22,7 @@ def load_arguments():
             default='')
     argparser.add_argument('--vocab',
             type=str,
-            default='')
+            default='tmp/shakes_mod.vocab')
     argparser.add_argument('--embedding',
             type=str,
             default='')
@@ -31,7 +31,7 @@ def load_arguments():
             default='')
     argparser.add_argument('--load_model',
             type=bool,
-            default=False)
+            default=True)
 
     argparser.add_argument('--batch_size',
             type=int,
@@ -51,7 +51,7 @@ def load_arguments():
 
     argparser.add_argument('--beam',
             type=int,
-            default=1)
+            default=8)
     argparser.add_argument('--dropout_keep_prob',
             type=float,
             default=0.5)
@@ -92,11 +92,11 @@ def load_arguments():
             type=int,
             default=128)
 
-    args = argparser.parse_args()
+    #args = argparser.parse_args()
 
-    print '------------------------------------------------'
-    pp = pprint.PrettyPrinter(indent=4)
-    pp.pprint(vars(args))
-    print '------------------------------------------------'
+    #print '------------------------------------------------'
+    #pp = pprint.PrettyPrinter(indent=4)
+    #pp.pprint(vars(args))
+    #print '------------------------------------------------'
 
-    return args
+    return argparser

@@ -19,23 +19,28 @@ import logging
 
 from flask import Flask
 from flask import request
-from style_transfer import Model
+
+import model_loader
+#from style_transfer import Model
 
 app = Flask(__name__)
-model = Model()
-
-@app.route('/toShakespeare', methods=['GET'])
+modelLdr = ModelLoader()
 
 # This function calls "toShakespeare"
+@app.route('/toShakespeare', methods=['GET'])
 def shakespeareText():
     """Given an input sentence, return the same sentence in Shakespeare style."""
     #while True:
     modern_text = request.args.get('modernText')
+    
     if modern_text is None:
         return 'No text input detected.', 400
-    output_text = model.toShakespeare(modern_text)
+    
+    output_text = modelLdr.toShakespeare('tmp/shakes_mod.vocab', modern_text)
+    
     if output_text is None:
         return 'You have stumped the style translator!', 400
+    
     return output_text, 200
 
 if __name__ == '__main__':
